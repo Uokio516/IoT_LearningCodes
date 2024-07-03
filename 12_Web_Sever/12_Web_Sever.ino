@@ -15,15 +15,13 @@ void setup()
   Serial.begin(115200);
   Serial.print("開始連線到無線網路SSID:");
   Serial.println(ssid);
+  WiFi.begin(ssid, password);
   //無法連線時esp重開
-  while(WiFi.status() != WL_CONNECTED){
+  while (WiFi.status() != WL_CONNECTED) {
     Serial.println(tryCount);
-    if(tryCount++ >= 20)ESP.restart();
+    if (tryCount++ >= 20)ESP.restart();
     delay(1000);
   }
-
-  WiFi.begin(ssid, password);
-  
   Serial.println("連線完成");
   server.begin();
   Serial.print("伺服器已啟動，http://");
@@ -64,12 +62,24 @@ void loop()
     //判斷超連結指令
     //網址內包含Gled=ON，就開啟綠燈，如果Gled=OFF，關閉綠燈
     //indexOf 用於字串搜尋(比對)，回覆找到位置
-    if (request.indexOf("Gled=ON") >= 0) { digitalWrite(Gled, HIGH); } 
-    if (request.indexOf("Gled=OFF") >= 0) { digitalWrite(Gled, LOW); }
-    if (request.indexOf("Yled=ON") >= 0) { digitalWrite(Yled, HIGH); }
-    if (request.indexOf("Yled=OFF") >= 0) { digitalWrite(Yled, LOW); }
-    if (request.indexOf("Rled=ON") >= 0) { digitalWrite(Rled, HIGH); }
-    if (request.indexOf("Rled=OFF") >= 0) { digitalWrite(Rled, LOW); }
+    if (request.indexOf("Gled=ON") >= 0) {
+      digitalWrite(Gled, HIGH);
+    }
+    if (request.indexOf("Gled=OFF") >= 0) {
+      digitalWrite(Gled, LOW);
+    }
+    if (request.indexOf("Yled=ON") >= 0) {
+      digitalWrite(Yled, HIGH);
+    }
+    if (request.indexOf("Yled=OFF") >= 0) {
+      digitalWrite(Yled, LOW);
+    }
+    if (request.indexOf("Rled=ON") >= 0) {
+      digitalWrite(Rled, HIGH);
+    }
+    if (request.indexOf("Rled=OFF") >= 0) {
+      digitalWrite(Rled, LOW);
+    }
 
     Serial.println("完成");
     client.stop();//停止連線
