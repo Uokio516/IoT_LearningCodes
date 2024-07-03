@@ -6,13 +6,13 @@ char ssid[] = "C220MIS";
 char password[] = "misc220c220";
 
 //------ 以下修改成你腳位 ------
-int pinDHT11 = 23;//DHT11
+int pinDHT11 = 14;//DHT11
 SimpleDHT11 dht11(pinDHT11);
-int pinGLED = 5;//綠色LED
-int pinYLED = 4;//黃色LED
+int pinGLED = 4;//綠色LED
+int pinYLED = 2;//黃色LED
 int pinRLED = 15;//紅色LED
-int Fanpin = 25; //風扇
-int PRpin = 34; //光敏電阻電壓值
+int Fanpin = 13; //風扇
+int PRpin = 33; //光敏電阻電壓值
 
 // ------ 以下修改成你MQTT設定 ------
 //&取址器=取得變數在記憶體中的位置， *指位器=指向記憶體開始位置的變數
