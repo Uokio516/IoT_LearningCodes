@@ -149,22 +149,22 @@ void MQTTCallback(char* topic, byte* payload, unsigned int length) {
   Serial.println(payloadString);
   //比對主題是否為訂閱主題1
   if (strcmp(topic, MQTTSubTopic1) == 0) {
-    Serial.println("改變燈號：" + payloadString);
+    Serial.println("改變綠燈：" + payloadString);
     if (payloadString == "1") digitalWrite(pinGLED, HIGH);
     if (payloadString == "0") digitalWrite(pinGLED, LOW);
   }
   if (strcmp(topic, MQTTSubTopic2) == 0) {
-    Serial.println("改變燈號：" + payloadString);
+    Serial.println("改變黃燈：" + payloadString);
     if (payloadString == "1") digitalWrite(pinYLED, HIGH);
     if (payloadString == "0") digitalWrite(pinYLED, LOW);
   }
   if (strcmp(topic, MQTTSubTopic3) == 0) {
-    Serial.println("改變燈號：" + payloadString);
+    Serial.println("改變紅燈：" + payloadString);
     if (payloadString == "1") digitalWrite(pinRLED, HIGH);
     if (payloadString == "0") digitalWrite(pinRLED, LOW);
   }
   if (strcmp(topic, MQTTSubTopic4) == 0) {
-    Serial.println("改變燈號：" + payloadString);
+    Serial.println("改變風扇：" + payloadString);
     if (payloadString == "1") digitalWrite(Fanpin, HIGH);
     if (payloadString == "0") digitalWrite(Fanpin, LOW);
   }
