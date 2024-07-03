@@ -1,0 +1,129 @@
+
+        <!DOCTYPE html><html><head><meta charset='utf-8'><meta http-equiv='Access-Control-Allow-Origin' content='*'>
+        <meta http-equiv='Access-Control-Allow-Credentials' content='true'>
+        <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>
+        <!-- <script src='https://fustyles.github.io/webduino/SpBlocklyJS/GameElements_20190131/gameelements.js'></script> -->
+        <script src='https://riddleling.github.io/SpBlocklyJS/gameelements.js'></script> 
+        <script src='https://fustyles.github.io/webduino/SpBlocklyJS/MQTT_20220324/mqtt.min.js'></script>
+        <script src='https://fustyles.github.io/webduino/SpBlocklyJS/chart_20220723/Chart.min.js'></script>
+        <script src='https://fustyles.github.io/webduino/SpBlocklyJS/chart_20220723/pretty-doughtnut.js'></script>
+        <script src='https://fustyles.github.io/webduino/SpBlocklyJS/chart_20220723/jquery.tempgauge.js'></script>
+        <script src='https://fustyles.github.io/webduino/SpBlocklyJS/chart_20220723/jquery.simplegauge.js'></script>
+        <!-- <script src='https://fustyles.github.io/webduino/SpBlocklyJS/chart_20220723/waterbubble.js'></script> -->
+        <script src='https://riddleling.github.io/SpBlocklyJS/waterbubble.js'></script>
+        <script src='https://fustyles.github.io/webduino/SpBlocklyJS/chart_20220723/linechart.js'></script>
+        <script src='https://fustyles.github.io/webduino/SpBlocklyJS/chart_20220723/barchart.js'></script>
+        <script src='https://fustyles.github.io/webduino/SpBlocklyJS/chart_20220723/jquery.simpleswitch.js'></script>
+        <link href='https://fustyles.github.io/webduino/SpBlocklyJS/chart_20220723/jquery.simplegauge.css' type='text/css' rel='stylesheet'>
+        <link href='https://fustyles.github.io/webduino/SpBlocklyJS/chart_20220723/simpleswitch.css' type='text/css' rel='stylesheet'>
+        </head><body><script>const delay=(seconds)=>{return new Promise((resolve)=>{setTimeout(resolve,seconds*1000);});};const main=async()=>{
+        var newdate;
+        const clientId = "mqtt_" + Math.random().toString(16).substr(2, 8);
+        const options = {
+            username: '',
+            password: '',
+            keepalive: 60,
+            clientId: clientId,
+            protocolId: "MQTT",
+            protocolVersion: 4,
+            clean: true,
+            reconnectPeriod: 1000,
+            connectTimeout: 30 * 1000
+        }
+        
+        var mqtt_client = mqtt.connect('wss://broker.mqttgo.io:8084/mqtt',options);
+        mqtt_client.on("connect", ()=>{
+            console.log("connected");
+            
+            mqtt_client.subscribe("Uokio/class220/humi");
+            
+            mqtt_client.subscribe("Uokio/class220/temp");
+            
+            mqtt_client.subscribe("Uokio/class220/led");
+            
+            mqtt_client.on("message", async function (topic, payload) {
+            
+                if (topic == "Uokio/class220/humi") {
+                    waterbubble({id: "humi", val: (new TextDecoder().decode(payload))});
+                }
+            
+                if (topic == "Uokio/class220/temp") {
+                    temperatureGauge({id: "temp", val: (new TextDecoder().decode(payload))});
+                }
+            
+                if (topic == "Uokio/class220/led") {
+                    
+            if ((new TextDecoder().decode(payload)) == '1') {
+                simpleSwitch({id: 'led',val: 1});
+            }
+            if ((new TextDecoder().decode(payload)) == '0') {
+                simpleSwitch({id: 'led',val: 0});
+            }
+            
+                }
+            
+           })
+          }
+        )
+
+        
+
+        waterbubble({
+            id: "humi",
+            name: '水位',
+            radius: 100,
+            left: 10,
+            top: 10,
+            val: 0,
+            min: 0,
+            max: 100,
+            unit: " "+"%",
+            decimal: 0,
+            waterColor: "#"+"79a3f7",
+            textColor: '#000000',
+            lineWidth: 4,
+            wave: true,
+            animation: true,
+            width: 180,
+	        height: 180,
+        });
+        
+
+        temperatureGauge({
+            id: "temp",
+            name: "temp",
+            width: 100,
+            left: 275,
+            top: 0,
+            val: 0,
+            min: 0,
+            max: 100,
+            fillColor: "#"+"f77c00",
+            borderWidth: 4,
+            unit: " "+"°C",
+            decimal: 0,
+            showLabel: true,
+            labelSize: 14,
+        });
+        
+        
+        simpleSwitch({
+            id: 'led',
+            width: 50,
+            height: 20,
+            left: 260,
+            top: 45,
+            text: 'led',
+            size: 14,
+            color: '#1eb364',
+            val: 1,
+            func: switch_led
+        });
+        
+        function switch_led() {
+            mqtt_client.publish('Uokio/class220/led', String(($("#gamecheckbox_"+'led').is(":checked"))) === "true" ? "1" : "0");
+        }
+        
+        
+        };main();</script></body></html>
+        
