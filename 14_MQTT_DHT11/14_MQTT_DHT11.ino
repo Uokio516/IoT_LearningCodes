@@ -147,7 +147,7 @@ void MQTTCallback(char* topic, byte* payload, unsigned int length) {
     payloadString = payloadString + (char)payload[i];
   }
   Serial.println(payloadString);
-  //比對主題是否為訂閱主題1
+  //比對主題是否為訂閱主題1 strcmp = 字串比對(回復差異數量) indexOF = 找字串
   if (strcmp(topic, MQTTSubTopic1) == 0) {
     Serial.println("改變綠燈：" + payloadString);
     if (payloadString == "1") digitalWrite(pinGLED, HIGH);
