@@ -63,7 +63,8 @@ void loop()
     Serial.println(request);
     //判斷超連結指令
     //網址內包含Gled=ON，就開啟綠燈，如果Gled=OFF，關閉綠燈
-    if (request.indexOf("Gled=ON") >= 0) { digitalWrite(Gled, HIGH); }
+    //indexOf 用於字串搜尋(比對)，回覆找到位置
+    if (request.indexOf("Gled=ON") >= 0) { digitalWrite(Gled, HIGH); } 
     if (request.indexOf("Gled=OFF") >= 0) { digitalWrite(Gled, LOW); }
     if (request.indexOf("Yled=ON") >= 0) { digitalWrite(Yled, HIGH); }
     if (request.indexOf("Yled=OFF") >= 0) { digitalWrite(Yled, LOW); }
