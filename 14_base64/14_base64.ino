@@ -13,8 +13,8 @@
 // ------ 以下修改成你的設定 ------
 int vFlip = 0;    //1=上下翻轉
 int hMirror = 0;  //1=左右翻轉
-char* ssid = "C220MIS";
-char* password = "misc220c220";
+char* ssid = "Uokio";
+char* password = "00000000";
 char* MQTTServer = "mqttgo.io";   //免註冊MQTT伺服器
 int MQTTPort = 1883;              //MQTT Port
 char* MQTTUser = "";              //不須帳密
