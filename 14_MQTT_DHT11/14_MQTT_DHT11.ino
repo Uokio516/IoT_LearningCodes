@@ -104,7 +104,9 @@ void ReadDHT(byte *temperature, byte *humidity) {
 void WifiConnecte() {
   //開始WiFi連線
   WiFi.begin(ssid, password);
+  int tryCount = 0 ;
   while (WiFi.status() != WL_CONNECTED) {
+    if(tryCount++ >= 20) ESP.restart();
     delay(500);
     Serial.print(".");
   }
