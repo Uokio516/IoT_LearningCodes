@@ -96,6 +96,7 @@ void loop() {
     Serial.println("溫溼度已推播到MQTT Broker");
     MQTTLastPublishTime = millis(); //更新最後傳輸時間
   }
+  
   MQTTClient.loop();  //更新訂閱狀態
 }
 
