@@ -4,10 +4,10 @@
 char ssid[] = "C220MIS";
 char password[] = "misc220c220";
 
-int Gled = 5; // 宣告綠色LED在 GPIO 15
-int Yled = 4; // 宣告黃色LED在 GPIO 2
+int Gled = 4; // 宣告綠色LED在 GPIO 15
+int Yled = 2; // 宣告黃色LED在 GPIO 2
 int Rled = 15; // 宣告紅色LED在 GPIO 4
-int FAN = 25; // 宣告USB風扇在 GPIO 14
+int FAN = 13; // 宣告USB風扇在 GPIO 14
 
 WiFiServer server(80); // 宣告伺服器位在80 port
 
