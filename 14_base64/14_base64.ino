@@ -21,7 +21,7 @@ char* MQTTUser = "";              //不須帳密
 char* MQTTPassword = "";          //不須帳密
 char* MQTTTopicPic1 = "Uokio/Class220/即時影像";    //推播主題1:即時影像
 long MQTTLastPublishTime;         //此變數用來記錄推播時間
-long MQTTPublishInterval = 500;  //推撥1秒2張
+long MQTTPublishInterval = 1000;  //推撥1秒2張
 
 
 sensor_t* s;
