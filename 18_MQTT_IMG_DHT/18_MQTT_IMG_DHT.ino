@@ -36,9 +36,9 @@ char* MQTTSubTopic2 = "Uokio/Class220/Yled";
 char* MQTTSubTopic3 = "Uokio/Class220/Rled";
 //訂閱主題3:改變LED燈號(記得改Topic)
 char* MQTTSubTopic4 = "Uokio/Class220/Fan";
-long MQTTLastPublish_IMG_Time;         //此變數用來記錄推播時間
+long MQTTLastPublish_IMG_Time = 0;         //此變數用來記錄推播時間
 long MQTTPublish_IMG_Interval = 200;  //推撥1秒5張
-long MQTTLastPublishTime;         //此變數用來記錄推播時間
+long MQTTLastPublishTime = 0;         //此變數用來記錄推播時間
 long MQTTPublishInterval = 10000;  //每十秒偵測依自=次
 
 //------ 以下修改成你腳位 ------
@@ -77,6 +77,8 @@ void loop() {
     String result = SendImageMQTT_Base64();
     Serial.println(result);
     MQTTLastPublish_IMG_Time = millis();  //更新最後傳輸時間
+    Serial.print("MQTTLastPublish_IMG_Time:");
+    Serial.println(MQTTLastPublish_IMG_Time);
   }
 
   if ((millis() - MQTTLastPublishTime) >= MQTTPublishInterval ) {
@@ -95,6 +97,8 @@ void loop() {
     MQTTClient.publish(MQTTPubTopic3, String(value).c_str());
     Serial.println("溫溼度已推播到MQTT Broker");
     MQTTLastPublishTime = millis(); //更新最後傳輸時間
+    Serial.print("MQTTLastPublishTime:");
+    Serial.println(MQTTLastPublishTime);
   }
   MQTTClient.loop();  //更新訂閱狀態
 }
