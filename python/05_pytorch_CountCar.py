@@ -41,12 +41,9 @@ while 1:
             if name in ['car','truck','bus']:
                 cv2.rectangle(frame,(x1,y1),(x2,y2),(0,0,225),2)
                 cv2.putText(frame, name, (x1,y1), cv2.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 2, cv2.LINE_AA)
-            if(name=='car'):
-                CarCount +=1
-            if(name=='truck'):
-                TruckCount +=1
-            if(name=='bus'):
-                BusCount +=1
+            if(name=='car'):CarCount +=1
+            if(name=='truck'):TruckCount +=1
+            if(name=='bus'):BusCount +=1
         cv2.putText(frame, 'Car=' + str(CarCount), (20, 50), cv2.FONT_HERSHEY_PLAIN, 3, (0, 0, 255), 2, cv2.LINE_AA)
         cv2.putText(frame, 'Truck=' + str(TruckCount), (20, 85), cv2.FONT_HERSHEY_PLAIN, 3, (0, 0, 255), 2, cv2.LINE_AA)
         cv2.putText(frame, 'Bus=' + str(TruckCount), (20, 120), cv2.FONT_HERSHEY_PLAIN, 3, (0, 0, 255), 2, cv2.LINE_AA)
