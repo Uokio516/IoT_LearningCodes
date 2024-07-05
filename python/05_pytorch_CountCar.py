@@ -9,16 +9,17 @@ import cv2,time
 cv2.namedWindow('YOLOv8', cv2.WINDOW_NORMAL)
 
 target='python\city.mp4'
-model = YOLO('yolov8m.pt')  # pretrained YOLOv8m model
+model = YOLO('yolov8l.pt')  # pretrained YOLOv8m model
 #認識的物件名（字典：編號可以查詢名稱）
 names=model.names
 
+#影像擷取裝置
 cap=cv2.VideoCapture(target)
 
 while 1:
     try:
-        st=time.time()  
-        r,frame = cap.read()
+        st=time.time()  #取得開始時間
+        r,frame = cap.read() #r=影像擷取成功?，frame=影像內容
         results = model(frame) # 用yolo model分析frame，得到結果存在results
         frame= results[0].plot() #把發現的結果繪圖出來覆蓋frame，results[0]=第1個結果=第1張照片
         #計算車輛數 results[0].boxes.data
